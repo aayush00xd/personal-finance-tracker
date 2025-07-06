@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { connectDB } from '@/lib/db';
 import Transaction from '@/models/Transaction';
 
-// DELETE /api/transactions/[id]
 export async function DELETE(
-  req: Request,
-  context: { params: { id: string } }
+  req: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   await connectDB();
 
-  const { id } = context.params;
+  const { id } = params;
 
   try {
     const deleted = await Transaction.findByIdAndDelete(id);
